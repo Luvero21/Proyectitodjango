@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'inicio',
     'accounts',
     'ecommerce',
+    'ckeditor'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

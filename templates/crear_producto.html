@@ -5,23 +5,16 @@
 {% endblock main_h2 %} {% block contiene_section %}
 <h3 align="center">Producto:</h3>
 
-<form align="center" method="post" action={% url 'formulaire' %} enctype="multipart/form-data">
+<form align="center" method="POST" action="{% url 'formulaire' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    
-    {{ formulaire.nombre.label_tag }} {{ formulaire.nombre }}
-    <br>
-    {{ formulaire.descripcion.label_tag }} {{ formulaire.descripcion }}
-    <br>
-    {{ formulaire.precio.label_tag }} {{ formulaire.precio }}
-    <br>
-    {{ formulaire.stock.label_tag }} {{ formulaire.stock }}
-    <br>
-    {{ formulaire.imagen.label_tag }} {{ formulaire.imagen }}
-    
-    <br>
+    {{formulaire.media}}
+    {{ formulaire.as_p }}
+
     <input type="submit" value="Crear" /><br />
-  </form>
+</form>
+
 <h5>
-  <i><b> Gracias por utilizar nuestro servicio</b></i>
+    <i><b> Gracias por utilizar nuestro servicio</b></i>
 </h5>
 {% endblock contiene_section %}
+

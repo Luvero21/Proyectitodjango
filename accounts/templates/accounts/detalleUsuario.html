@@ -9,12 +9,10 @@
 <div class='datos'>
 <ul>
     <li><p>Email: {{ user.email }}</p></li>
-    <li><p>Apellido: {{ user.last_name }}</p></li>
-    <li><p>Nombre: {{ user.first_name }}</p></li>
-    <li><p>Pais: {{extra_info.pais}}</p></li>
+    <li><p>Username : {{user.username}}</p></li>
     <li><p>Avatar:
         {% if extra_info.avatar %}
-            <img class='avatar' src="{{ extra_info.avatar.url}}" alt='Avatar actual' heigth='50px' width='50px'>
+            <img class='avatar' src="{{ extra_info.avatar.url}}" alt='Avatar actual' height='50px' width='50px'>
         {% else %}
             No hay avatar disponible
         {% endif %}

@@ -61,7 +61,7 @@
                   <a class="dropdown-item" href="{% url 'lista_clientes' %} ">Lista de Clientes</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{% url 'lista_registrados' %} ">Lista de Usuarios</a>
+                  <a class="dropdown-item" href="{% url 'lista_usuarios' %} ">Lista de Usuarios</a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="{% url 'lista_productos' %} ">Lista de Productos</a>
@@ -85,12 +85,7 @@
               </ul>
             </li>
           </ul>
-          
-            <button class="btn btn-outline-default" type="button" id="agregarAlCarrito" data-carrito-id="{{ carrito.id }}" data-producto-id="{{ producto.id }}">
-              <i class="bi-cart-fill me-1"></i>
-              Mi Carrito
-              <span class="badge bg-dark text-white ms-1 rounded-pill">{{ carrito.productos.count }}</span>
-            </button>
+        
           {% if not request.user.is_authenticated %}
             <a class="btn btn-outline-dark" href="#">No Registrado</a>
             <a class="btn btn-outline-dark" href={% url "login" %}>
@@ -99,7 +94,7 @@
             <a class="btn btn-outline-dark" href={% url "registrate" %}>Regístrate</a>
           {% else %}
               <a class="btn btn-outline-default" href= {% url "detalleUsuario" %}>
-               <img  class='avatar' heigth='30px' width='30px' src={{request.user.extra.avatar.url}} alt="avatar"><br> Bienvenido {{request.user.username}} </a>
+               <img  class='avatar' heigth='30px' width='30px' src="{% if user.extra.avatar %}{{ user.extra.avatar.url }}{% endif %}" alt="avatar"><br> Bienvenido {{request.user.username}} </a>
               <a class="btn btn-outline-link" href={% url "logout" %}>
                 <i class="bi bi-person-circle"></i> Cerrar Sesión
               </a>
@@ -121,7 +116,7 @@
     </header>
     <main>
         <h2>
-      {% block main_h2 %} ZONA KETO {% endblock main_h2 %}
+      {% block main_h2 %} ZONA {% endblock main_h2 %}
         <h2/>
     </main>
 

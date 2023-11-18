@@ -1,0 +1,23 @@
+{% extends 'base.html'%} 
+{% block head_title %} <title>Lista de Usuarios Registrados</title> {% endblock head_title %} 
+{% block contiene_section %}
+  <h2>Lista de Usuarios Registrados</h2>
+<div class='container'>
+<div class='datos'>
+{% if extras %}
+  <ul>
+    {% for extra in extras %}
+      <li>
+        {{ extra.user.username }} - {{ extra.user.email }} - {{ extra.pais }}
+        {% if extra.avatar %}
+          <img src="{{ extra.avatar.url }}" alt="{{ extra.user.username }} Avatar" width='50' heigth='50' class='avatar'>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+    <p>No hay información adicional disponible para ningún usuario.</p>
+{% endif %}
+</div>
+</div><br>
+{% endblock contiene_section %}

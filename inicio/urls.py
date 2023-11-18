@@ -1,5 +1,5 @@
 from django.urls import path
-from inicio.views import nosotros, actualizar_producto, actualizar_usuario, actualizar_cliente, formulario_usuario, lista_usuario, detalle_usuario,eliminar_usuario, eliminar_producto, eliminar_cliente, agregarcliente, crearProducto, inicio,formulario_usuario, detalle_cliente, confirmacion_registro, lista_productos,lista_clientes,detalle_producto,formulario_cliente
+from inicio.views import nosotros, actualizar_producto, actualizar_cliente, eliminar_producto, eliminar_cliente, agregarcliente, crearProducto, inicio, detalle_cliente, confirmacion_registro, lista_productos,lista_clientes,detalle_producto,formulario_cliente
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -17,11 +17,6 @@ urlpatterns =[
     path('detalleproducto/<int:producto_id>/', detalle_producto, name='detalle_producto'),
     path('formulariocliente/', formulario_cliente, name='formulariocliente_sin_id'),
     path('confirmacionregistro/',confirmacion_registro, name='confirmacion_registro'),
-    path('formulario_usuario/', formulario_usuario, name="formulario_usuario"),
-    path('detalleusuario/<int:usuario_id>/', detalle_usuario, name='detalle_usuario'),
-    path('listausuarios/', lista_usuario, name='lista_usuarios'),
-    path('listausuarios/<int:usuario_id>/eliminar', eliminar_usuario, name='eliminar_usuario'),
-    path('listausuarios/<int:usuario_id>/actualizar', actualizar_usuario, name='actualizar_usuario'),
     path('formulaireproducto/', crearProducto, name='formulaire'),
     path('confirmacionregistro/<int:cliente_id>/eliminar', eliminar_cliente, name='eliminar_cliente')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

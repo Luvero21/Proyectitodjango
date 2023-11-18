@@ -1,13 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 
-from inicio.models import Producto, Cliente, Usuario
+from inicio.models import Producto, Cliente
 
-from inicio.forms import ActualizarProductoFormulario, actualizarUsuarioFormulario, UsuarioForm, ClienteForm, actualizarClienteFormulario
+from inicio.forms import ActualizarProductoFormulario, ClienteForm, actualizarClienteFormulario
 
 from inicio.formulaire import formulaireProducto
 
 from django.contrib.auth.decorators import login_required
-
 
 def inicio(request):
     
@@ -34,7 +33,7 @@ def eliminar_cliente(request,cliente_id):
     cliente_a_eliminar.delete()
     
     return redirect('lista_clientes')
-
+#Para eliminr cliente
 @login_required
 def actualizar_cliente(request,cliente_id):
     cliente_a_actualizar = Cliente.objects.get(id=cliente_id)
@@ -61,8 +60,8 @@ def actualizar_cliente(request,cliente_id):
 #Vista Crear Producto
 @login_required
 def crearProducto(request):
-    if request.method =='POST':
-        formulaire=formulaireProducto(request.POST)
+    if request.method == 'POST':
+        formulaire=formulaireProducto(request.POST, request.FILES)
         if formulaire.is_valid():
             info_clean= formulaire.cleaned_data
             
@@ -89,7 +88,7 @@ def eliminar_producto (request, producto_id):
     producto_a_eliminar.delete()
     
     return redirect('lista_productos')
-
+#Actualizar producto
 @login_required
 def actualizar_producto(request,producto_id):
     producto_a_actualizar= Producto.objects.get(id=producto_id)
@@ -107,66 +106,6 @@ def actualizar_producto(request,producto_id):
     else:
         formulario= ActualizarProductoFormulario(instance=producto_a_actualizar)
         return render ( request, 'actualizar_producto.html',{'formulario':formulario,'producto': producto_a_actualizar})
-
-
-def formulario_usuario(request):
-    mensaje=''
-    context={}
-    if request.method == 'POST':
-        form = UsuarioForm(request.POST)
-        if form.is_valid():
-            form.save()
-            mensaje='¡Gracias por registrarse!'
-           
-
-    context['form'] = UsuarioForm()
-    context['mensaje']=mensaje
-    
-    return render(request,'formulario_usuario.html', context)
-
-@login_required
-def eliminar_usuario(request, usuario_id):
-    usuario_a_eliminar= Usuario.objects.get(id=usuario_id)
-    usuario_a_eliminar.delete()
-    return redirect('lista_usuarios')
-
-@login_required
-def actualizar_usuario(request, usuario_id):
-    usuario_a_actualizar = Usuario.objects.get(id = usuario_id)
-    
-    if request.method == 'POST':
-        formulario=actualizarUsuarioFormulario(request.POST)
-        if formulario.is_valid():
-            info_nueva=formulario.cleaned_data
-            
-            usuario_a_actualizar.nombre_usuario = info_nueva.get('nombre_usuario')
-            usuario_a_actualizar.nombre = info_nueva.get('nombre')
-            usuario_a_actualizar.email = info_nueva.get('email')
-            usuario_a_actualizar.edad = info_nueva.get('edad')
-            usuario_a_actualizar.password = info_nueva.get('password')
-            
-            usuario_a_actualizar.save()
-            return redirect('lista_usuarios')
-        else:
-            return render(request, 'actualizar_usuario.html', {'formulario': formulario})
-    formulario= actualizarUsuarioFormulario()
-    return render ( request, 'actualizar_usuario.html',{'formulario':formulario})      
-
-@login_required
-def detalle_usuario(request,usuario_id):
-    usuario=get_object_or_404(Usuario,id=usuario_id,)
-    return render(request, 'detalle_usuario.html',{'usuario':usuario})
-
-@login_required
-def lista_usuario(request):
-    usuario_a_buscar = request.GET.get('nombre_usuario')
-    if usuario_a_buscar:
-        usuarios= Usuario.objects.filter(nombre_usuario=usuario_a_buscar)
-    else:
-        usuarios=Usuario.objects.all()
-        
-    return render(request, 'lista_usuarios.html', {'usuarios': usuarios})
-
 
 
 def confirmacion_registro(request):
