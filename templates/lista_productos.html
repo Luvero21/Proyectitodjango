@@ -1,0 +1,59 @@
+{% extends 'base.html'%} 
+{% block head_title %}
+<title>Lista Productos</title> 
+{% endblock head_title %} 
+{% block contiene_section %}
+
+<form action="">
+  <input type="text" name="nombre" placeholder="Buscar Producto" />
+  <input type="submit" value="Buscar" />
+</form><br>
+<div id="resultado">
+  
+  {% if not productos %}
+    <p>No se encuentra lo solicitado.</p>
+  {% endif %}
+</div>
+<h1 align='center'>Lista de Productos</h1><br>
+<table align='center'>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Acciones</th>
+      <th>Precio</th>
+      <th>Imagen</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for producto in productos %}
+    <tr>
+      <td>
+        <a href="{% url 'detalle_producto' producto.id %}"
+          >{{ producto.nombre }}</a
+        >
+      </td>
+      <td>
+        <button>
+          <a href="{% url 'eliminar_producto' producto.id %}">Eliminar</a>
+        </button>
+        <button>
+          <a href="{% url 'actualizar_producto' producto.id %}">Actualizar</a>
+        </button>
+        <button>
+          <a href="{% url 'detalle_producto' producto.id %}">Detalle</a>
+        </button>
+      </td>
+      <td>${{ producto.precio }}</td>
+      <td>
+              {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" width="50" height="50">
+              {% else %}
+                Sin imagen
+              {% endif %}
+            </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table><br>
+
+{% endblock contiene_section %}

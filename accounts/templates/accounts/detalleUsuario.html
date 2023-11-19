@@ -1,0 +1,29 @@
+{% extends "base.html" %} 
+{% block head_title %} <title>Detalle del Usuario</title> {% endblock head_title %} 
+{% block main_h2 %}
+<h2 align=center>Datos del Usuario</h2><br>
+{% endblock main_h2 %} 
+
+{% block contiene_section %}
+<div class='contenedor'>
+<div class='datos'>
+<ul>
+    <li><p>Email: {{ user.email }}</p></li>
+    <li><p>Apellido: {{ user.last_name }}</p></li>
+    <li><p>Nombre: {{ user.first_name }}</p></li>
+    <li><p>Pais: {{extra_info.pais}}</p></li>
+    <li><p>Avatar:
+        {% if extra_info.avatar %}
+            <img class='avatar' src="{{ extra_info.avatar.url}}" alt='Avatar actual' heigth='50px' width='50px'>
+        {% else %}
+            No hay avatar disponible
+        {% endif %}
+    </p></li>
+
+</ul>
+</div><br><br>
+</div>
+
+<a class="btn btn-outline-link" href={% url "editar_perfil" %}>Editar</a> 
+<a class="btn btn-outline-link" href={% url "cambioPassword" %}>Cambiar Password</a> 
+{% endblock contiene_section %}

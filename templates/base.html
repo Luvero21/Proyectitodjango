@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    {% block head_title%}
+    <title>KetoEats</title>
+    {% endblock head_title%}
+    
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+    <!-- Bootstrap icons-->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'styles.css' %}" rel="stylesheet" />
+  </head>
+   <body>
+    
+    <nav class="navbar navbar-expand-lg" >
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href={% url "inicio" %}> KetoEats </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                id="navbarDropdown"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"> Zona de Usuario 
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'formulaire' %} ">Agregar producto</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'formulariocliente_sin_id' %} ">Agregar Cliente</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'lista_clientes' %} ">Lista de Clientes</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'lista_registrados' %} ">Lista de Usuarios</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'lista_productos' %} ">Lista de Productos</a>
+                </li>
+              </ul>
+            </li>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %} ">Nosotros</a></li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                id="navbarDropdown"
+                href=""
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Nuestros platos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'lista_productos' %}">Nuestro menu</a></li>
+              </ul>
+            </li>
+          </ul>
+          
+            <button class="btn btn-outline-default" type="button" id="agregarAlCarrito" data-carrito-id="{{ carrito.id }}" data-producto-id="{{ producto.id }}">
+              <i class="bi-cart-fill me-1"></i>
+              Mi Carrito
+              <span class="badge bg-dark text-white ms-1 rounded-pill">{{ carrito.productos.count }}</span>
+            </button>
+          {% if not request.user.is_authenticated %}
+            <a class="btn btn-outline-dark" href="#">No Registrado</a>
+            <a class="btn btn-outline-dark" href={% url "login" %}>
+              <i class="bi bi-person-circle"></i> Iniciar Sesión
+            </a>
+            <a class="btn btn-outline-dark" href={% url "registrate" %}>Regístrate</a>
+          {% else %}
+              <a class="btn btn-outline-default" href= {% url "detalleUsuario" %}>
+               <img  class='avatar' heigth='30px' width='30px' src={{request.user.extra.avatar.url}} alt="avatar"><br> Bienvenido {{request.user.username}} </a>
+              <a class="btn btn-outline-link" href={% url "logout" %}>
+                <i class="bi bi-person-circle"></i> Cerrar Sesión
+              </a>
+          {% endif %}
+
+        </div>
+      </div>
+     </nav>
+    <!-- Header-->
+    <header   class="header py-5">
+      <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">KetoEats</h1>
+          <p class="lead fw-normal text-white-50 mb-0">
+            Platos saludables y sabrosos
+          </p>
+        </div>
+      </div>
+    </header>
+    <main>
+        <h2>
+      {% block main_h2 %} ZONA KETO {% endblock main_h2 %}
+        <h2/>
+    </main>
+
+    <!-- Section-->
+    {% block contiene_section%}
+    <section class="py-5">
+      <div class="container px-4 px-lg-5 mt-5">
+        <div
+          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+        >
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Product image-->
+              <img
+                class="card-img-top"
+                src="https://cdn.pixabay.com/photo/2017/03/23/19/57/asparagus-2169305_1280.jpg"
+                alt="..."
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Cerdo con esparragos y tomate</h5>
+                  <!-- Product price-->
+                  $40.00 - $80.00
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <input type="hidden" class="producto-id" value="1">
+                  Agregar
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Sale badge-->
+              <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+              >
+                Sale
+              </div>
+              <!-- Product image-->
+              <input type="hidden" class="producto-id" value="1">
+              <img
+                class="card-img-top"
+                src="https://cdn.pixabay.com/photo/2018/09/14/11/12/food-3676796_1280.jpg"
+                alt="..."
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Filet de Carne con verduras</h5>
+                  <!-- Product reviews-->
+                  <div
+                    class="d-flex justify-content-center small text-warning mb-2"
+                  >
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  <span class="text-muted text-decoration-line-through"
+                    >$20.00</span
+                  >
+                  $18.00
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  Agregar
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Sale badge-->
+              <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+              >
+                Sale
+              </div>
+              <!-- Product image-->
+              <input type="hidden" class="producto-id" value="1">
+              <img
+                class="card-img-top"
+                src="https://cdn.pixabay.com/photo/2016/06/17/19/11/pasta-1463934_1280.jpg"
+                alt="..."
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Spaguettis integrales con bolognesa</h5>
+                  <!-- Product price-->
+                  <span class="text-muted text-decoration-line-through"
+                    >$50.00</span
+                  >
+                  $25.00
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  Agregar
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Product image-->
+              <input type="hidden" class="producto-id" value="1">
+              <img
+                class="card-img-top"
+                src="https://cdn.pixabay.com/photo/2015/09/09/20/07/meal-932985_1280.jpg"
+                alt="..."
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Pollo con arroz y brócoli</h5>
+                  <!-- Product reviews-->
+                  <div
+                    class="d-flex justify-content-center small text-warning mb-2"
+                  >
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  $40.00
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  Agregar
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Sale badge-->
+              <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+              >
+                Sale
+              </div>
+              <!-- Product image-->
+              <input type="hidden" class="producto-id" value="1">
+              <img
+                class="card-img-top"
+                src="https://cdn.pixabay.com/photo/2018/05/03/05/19/skewer-3370443_1280.jpg"
+                alt="..."
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Brochett a la parrilla con vegetales</h5>
+                  <!-- Product price-->
+                  <span class="text-muted text-decoration-line-through"
+                    >$50.00</span
+                  >
+                  $25.00
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  Agregar
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Product image-->
+              <input type="hidden" class="producto-id" value="1">
+              <img
+                class="card-img-top"
+                src="https://cdn.pixabay.com/photo/2017/03/19/14/59/italian-salad-2156720_1280.jpg"
+                alt="..."
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Ensalada Italiana</h5>
+                  <!-- Product price-->
+                  $120.00 - $280.00
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  Agregar
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Sale badge-->
+              <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+              >
+                Sale
+              </div>
+              <!-- Product image-->
+              <input type="hidden" class="producto-id" value="1">
+              <img
+                class="card-img-top"
+                src="https://cdn.pixabay.com/photo/2018/03/04/20/05/pizza-3199081_640.jpg"
+                alt="..."
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Pizza integral Napolitana</h5>
+                  <!-- Product reviews-->
+                  <div
+                    class="d-flex justify-content-center small text-warning mb-2"
+                  >
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  <span class="text-muted text-decoration-line-through"
+                    >$20.00</span
+                  >
+                  $18.00
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  Agregar
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Product image-->
+              <input type="hidden" class="producto-id" value="1">
+              <img
+                class="card-img-top"
+                src="https://cdn.pixabay.com/photo/2018/04/21/12/03/food-3338312_640.jpg"
+                alt="..."
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Tiramissu Keto</h5>
+                  <!-- Product reviews-->
+                  <div
+                    class="d-flex justify-content-center small text-warning mb-2"
+                  >
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  $40.00
+                </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  Agregar
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+     {% endblock contiene_section%}
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; 💜Luciana💜 La tiendita 2023
+        </p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{% static 'js/scripts.js'%}"></script>
+<script>
+   $(document).ready(function() {
+    $('.agregar-al-carrito').on('click', function(e) {
+        e.preventDefault();
+
+        var productoId = $(this).data('producto-id');
+
+        if (productoId) {
+            
+            $.ajax({
+                url: '/agregar_al_carrito/' + productoId + '/',
+                type: 'POST',
+                success: function(data) {
+                   
+                    var contadorCarrito = parseInt($('.badge').text());
+                    $('.badge').text(contadorCarrito + 1);
+                    console.log('Producto agregado al carrito:', data);
+                },
+                error: function(error) {
+                    console.error('Error al agregar al carrito:', error);
+                }
+            });
+        } else {
+            console.error('El productoId no es válido.');
+        }
+    });
+});
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+   $(document).ready(function() {
+    $('.agregar-al-carrito').on('click', function(e) {
+        e.preventDefault();
+
+        var productoId = $(this).closest('.card').find('.producto-id').val();
+
+       
+        $.ajax({
+            url: '/agregar_al_carrito/' + productoId + '/',
+            type: 'POST',  
+            data: {'producto_id': productoId}, 
+            success: function(data) {
+                
+                var contadorCarrito = parseInt($('.badge').text());
+                $('.badge').text(contadorCarrito + 1);
+                console.log('Producto agregado al carrito:', data);
+            },
+            error: function(error) {
+                console.error('Error al agregar al carrito:', error);
+            }
+        });
+    });
+});
+
+</script>
+  </body>
+</html>

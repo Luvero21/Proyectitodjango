@@ -1,0 +1,17 @@
+{% extends 'base.html'%} {% block head_title %}
+<title>Detalle Usuario</title> {% endblock head_title %} {% block
+contiene_section %}
+<h1>Detalle de Usuario</h1>
+
+<div>
+  <h2>Nombre: {{ usuario.nombre }}</h2>
+  <p>Nombre de Usuario:{{usuario.nombre_usuario}}</p>
+  <p>Email: {{ usuario.email }}</p>
+  <p>Password: ${{ usuario.password }}</p>
+
+  <input type="submit" value="Eliminar" /><a
+    href='{% url "eliminar_usuario" usuario.id %}'
+  ></a>
+  {% endif %}
+</div>
+{% endblock contiene_section %}

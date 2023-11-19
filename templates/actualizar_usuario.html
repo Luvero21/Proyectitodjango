@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block head_title %}
+<title>Actualizar Usuario</title> {% endblock head_title %} {% block main_h2%}
+<h2>Modifica tu usuario</h2>
+{% endblock main_h2%} {% block contiene_section %}
+
+<div align="center">
+  <form method="POST">
+    {% csrf_token %}
+
+    <label for="nombre_usuario">Usuario:</label>
+    <input type="text" name="nombre_usuario" required /><br />
+    <br />
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" required /><br />
+    <br />
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" required /><br />
+    <br />
+    <label for="edad">Edad:</label>
+    <input type="number" name="edad" min="1" required /><br />
+    <br />
+    <br />
+    <label for="password">Password:</label>
+    <input type="password" name="password" required /><br />
+    <br />
+
+    <input type="submit" value="Enviar" />
+  </form>
+</div>
+{% endblock contiene_section %}

@@ -1,0 +1,12 @@
+
+__pycache__
+proyectoDjango
+ecommerce
+node_modules
+datos.json
+db.sqlite3
+package-lock.json
+package.json
+.vscode
+
+

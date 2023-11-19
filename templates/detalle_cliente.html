@@ -1,0 +1,14 @@
+{% extends 'base.html'%} {% block head_title %}
+<title>Detalle Cliente</title> {% endblock head_title %}
+{% block contiene_section %}
+
+<div class='container'>
+<div clas='datos'>
+<h1>Detalle del Cliente</h1>
+<p>Nombre: {{ cliente.nombre }}</p>
+<p>Dirección: {{ cliente.direccion }}</p>
+<p>Teléfono: {{ cliente.telefono }}</p>
+<p>Email: {{ cliente.email }}</p>
+</div>
+</div>
+{% endblock contiene_section %}

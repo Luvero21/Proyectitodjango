@@ -1,0 +1,15 @@
+{% extends "base.html" %} 
+{% block head_title %} <title>Editar Perfil</title> {% endblock head_title %} 
+{% block main_h2%}
+<h2 align=center>Edita tu perfil:</h2><br>
+{% endblock main_h2%} 
+{% block contiene_section %}
+
+<form method="post" action={% url 'editar_perfil' %} enctype="multipart/form-data">
+  {% csrf_token %}
+
+ {{formulario}}
+
+  <input type="submit" value="Editar" />
+</form><br>
+{% endblock contiene_section %}

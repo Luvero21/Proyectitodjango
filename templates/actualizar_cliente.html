@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block head_title %}
+<title>Actualizar cliente</title> {% endblock head_title %} {% block main_h2%}
+<h2>Actualizar ciente</h2>
+{% endblock main_h2%} {% block contiene_section %}
+
+<form method="post" action="{% url 'formulariocliente_sin_id' %}">
+  {% csrf_token %}
+  <p>
+    <label for="nombre">Nombre: </label>
+    <input type="text" name="nombre" id="nombre" required />
+  </p>
+  <p>
+    <label for="direccion">Direccion: </label>
+    <input type="text" name="direccion" id="direccion" required />
+  </p>
+  <p>
+    <label for="telefono">Telefono: </label
+    ><input type="number" name="telefono" id="telefono" required />
+  </p>
+  <p>
+    <label for="email">Email: </label
+    ><input type="email" name="email" id="email" required />
+  </p>
+
+  <p><input type="submit" value="Actualizar" /></p>
+</form>
+
+{% endblock contiene_section %}

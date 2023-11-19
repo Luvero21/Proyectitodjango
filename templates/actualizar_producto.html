@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block head_title %}
+<title>Actualizar Producto</title> {% endblock head_title%} {% block main_h2 %}
+<h2>Actualiza un producto</h2>
+{% endblock main_h2 %} {% block contiene_section %}
+<h3 align="center">Producto:</h3>
+<form method="post" action="{% url 'actualizar_producto' producto_id=producto.id %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <p>Producto ID: {{ producto.id }}</p>
+
+  <p>
+    <label for="nombre">Nombre: </label>
+    <input type="text" name="nombre" id="nombre" required />
+  </p>
+  <p>
+    <label for="descripcion">Descripción: </label>
+    <input type="text" name="descripcion" id="descripcion" required />
+  </p>
+  <p>
+    <label for="precio">Precio: </label>
+      <input type="number" name="precio" id="precio" required />
+  </p>
+  <p>
+    <label for="stock">Stock: </label>
+    <input type="number" name="stock" id="stock" value="{{ producto.stock }}" required />
+  </p>
+  <p>
+    <label for="imagen">Imagen: </label>
+    <input type="file" name="imagen" id="imagen" required />
+  </p>
+
+  <p><input type="submit" value="Actualizar" /></p>
+</form>
+{% endblock contiene_section %}
